@@ -36,12 +36,12 @@ namespace Sitecore.Support.ListManagement.Services.Repositories
       Assert.ArgumentNotNull(entity, "entity");
       AssertId(entity.Id);
       Guid guid = string.IsNullOrEmpty(entity.Id) ? Guid.NewGuid() : Guid.Parse(entity.Id);
-      SegmentDefinition segmentDefinition = new SegmentDefinition(guid, ItemUtil.ProposeValidItemName(FormattableString.Invariant(FormattableStringFactory.Create("{0}-{1}", entity.Name, guid))), ContextCulture, entity.Name, DateUtil.ToUniversalTime(DateUtil.IsoDateToDateTime(entity.Created, DateTime.UtcNow)), entity.CreatedBy ?? Context.User.Name)
+      SegmentDefinition segmentDefinition = new SegmentDefinition(guid, ItemUtil.ProposeValidItemName(FormattableString.Invariant(FormattableStringFactory.Create("{0}-{1}", entity.Name, guid))), Context.Language.CultureInfo, entity.Name, DateUtil.ToUniversalTime(DateUtil.IsoDateToDateTime(entity.Created, DateTime.UtcNow)), entity.CreatedBy ?? Context.User.Name)
       {
         Description = entity.Description
       };
       segmentDefinition.Rules.CopyFrom(CreateRulesFromXml(entity.RulesXml));
-      _segmentDefinitionManager.SaveAsync(segmentDefinition, true).Wait();
+      _segmentDefinitionManager.SaveAsync(segmentDefinition, true);
     }
 
     private IEnumerable<Rule> CreateRulesFromXml(string xmlData)

@@ -12,7 +12,7 @@ using Sitecore.Data.Managers;
 using Sitecore.Marketing.Definitions.Segments;
 using Sitecore.Marketing.Segmentation.RuleXmlConverter;
 
-namespace Sitecore.Support
+namespace Sitecore.Support.ListManagement.Services.DependencyInjection
 {
   public class OverrideSegmentRepositoryConfigurator : IServicesConfigurator
   {
